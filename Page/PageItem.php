@@ -20,31 +20,29 @@
  * http://www.gnu.org/licenses/lgpl-3.0.de.html
  *
  **************************************************************/
-
+namespace Mps\Pagination\Page;
 
 /**
- * interface for a page item
- *
- * a pagination iterator will return object implementing this interface
- * for each item in the pagination that links to a page
+ * a simple page item class
  *
  * @author Nikolas Schmidt-Voigt <n.schmidtvoigt@googlemail.com>
  * @license LGPL-3.0 <http://opensource.org/licenses/LGPL-3.0>
  */
-
-interface PageItemInterface
+class PageItem implements PageItemInterface
 {
-	/**
-	 * constructs a new page item
-	 *
-	 * @param	int	pageNumber	the number of the represented page
-	 */
-	public function __construct($pageNumber);
+    protected $pageNumber;
 
-	/**
-	 * returns the number of the represented page
-	 *
-	 * @return	int	the number of the represented page
-	 */
-	public function getPageNumber();
+    public function __construct($pageNumber)
+    {
+        if (!is_integer($pageNumber)) {
+            throw new \InvalidValueException('page number must be an interger');
+        }
+
+        $this->pageNumber = $pageNumber;
+    }
+
+    public function getPageNumber()
+    {
+        return $this->pageNumber;
+    }
 }

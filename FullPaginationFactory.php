@@ -20,24 +20,23 @@
  * http://www.gnu.org/licenses/lgpl-3.0.de.html
  *
  **************************************************************/
-
+namespace Mps\Pagination;
 
 /**
  * a full pagination class factory
  *
- * paginations made by this factory show each page in the list 
+ * paginations made by this factory show each page in the list
  * without any gaps
  *
  * @author Nikolas Schmidt-Voigt <n.schmidtvoigt@googlemail.com>
  * @license LGPL-3.0 <http://opensource.org/licenses/LGPL-3.0>
  */
-
- class FullPaginationFactory implements PaginationFactoryInterface
- {
-	public static function makeNewPagination($max, $steps = 1, $current = 1, $min = 1)
-	{
-		$elements = range((int) $min, (int) $max);
-		return new PaginationIterator($elements);
-	}
- }
+class FullPaginationFactory implements PaginationFactoryInterface
+{
+    public static function makeNewPagination($max, $steps = 1, $current = 1, $min = 1)
+    {
+        $elements = range((int)$min, (int)$max);
+        return new PaginationIterator($elements);
+    }
+}
 

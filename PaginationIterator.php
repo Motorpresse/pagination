@@ -20,6 +20,7 @@
  * http://www.gnu.org/licenses/lgpl-3.0.de.html
  *
  **************************************************************/
+namespace Mps\Pagination;
 
 /**
  * a simple pagination iterator
@@ -29,107 +30,127 @@
  *
  * @author Nikolas Schmidt-Voigt <n.schmidtvoigt@googlemail.com>
  */
-
 class PaginationIterator implements PaginationIteratorInterface
 {
 
-	// a list of all pages that this pagination links to
-	protected $elements			= array();
-	protected $pageItemClass	= 'PageItem';
-	protected $gapItemClass		= 'GapItem';
+    // a list of all pages that this pagination links to
+    protected $elements = array();
+    protected $pageItemClass = 'PageItem';
+    protected $gapItemClass = 'GapItem';
 
-	// the index of the next element from the elements array
-	protected $index			= 0;
-	// the position in the pagination - counting gaps and page items
-	protected $position			= 0;
-	// the last shown element from the elements array
-	protected $currentPage		= 0;
-	// the last returned item - either a PageItem or a GapItem
-	protected $currentItem;
+    // the index of the next element from the elements array
+    protected $index = 0;
+    // the position in the pagination - counting gaps and page items
+    protected $position = 0;
+    // the last shown element from the elements array
+    protected $currentPage = 0;
+    // the last returned item - either a PageItem or a GapItem
+    protected $currentItem;
 
-	public function __construct(array $elements)
-	{
-		$elements = array_filter($elements, 'is_integer');
-		$elements = array_unique($elements);
-		sort($elements);
-		
-		$this->elements = $elements;
-		$this->rewind();
-	}
+    public function __construct(array $elements)
+    {
+        $elements = array_filter($elements, 'is_integer');
+        $elements = array_unique($elements);
+        sort($elements);
 
-	/**
-	 * return the array with all elements
-	 *
-	 * @return	array	the elements
-	 */
-	public function getElements()
-	{
-		return $this->elements;
-	}
+        $this->elements = $elements;
+        $this->rewind();
+    }
 
-	public function setPageItemClass($pageItemClass)
-	{
-		if (!is_string($pageItemClass) || empty($pageItemClass)) {
-			throw new InvalidArgumentException('class name for page items must be a string');
-		}
+    /**
+     * return the array with all elements
+     *
+     * @return    array    the elements
+     */
+    public function getElements()
+    {
+        return $this->elements;
+    }
 
-		$this->pageItemClass = $pageItemClass;
-	}
+    /**
+     * @param $pageItemClass
+     */
+    public function setPageItemClass($pageItemClass)
+    {
+        if (!is_string($pageItemClass) || empty($pageItemClass)) {
+            throw new \InvalidArgumentException('class name for page items must be a string');
+        }
 
-	public function setGapItemClass($gapItemClass)
-	{
-		if (!is_string($gapItemClass) || empty($gapItemClass)) {
-			throw new InvalidArgumentException('class name for gap items must be a string');
-		}
+        $this->pageItemClass = $pageItemClass;
+    }
 
-		$this->gapItemClass = $gapItemClass;
-	}
+    /**
+     * @param $gapItemClass
+     */
+    public function setGapItemClass($gapItemClass)
+    {
+        if (!is_string($gapItemClass) || empty($gapItemClass)) {
+            throw new \InvalidArgumentException('class name for gap items must be a string');
+        }
 
-	public function rewind()
-	{
-		$this->index		= 0;
-		$this->position		= 0;
-		$this->currentPage	= 0;
+        $this->gapItemClass = $gapItemClass;
+    }
 
-		if (isset($this->elements[0])) {
-			$this->currentPage = $this->elements[0] - 1;
-		}
-	}
+    /**
+     *
+     */
+    public function rewind()
+    {
+        $this->index = 0;
+        $this->position = 0;
+        $this->currentPage = 0;
 
-	public function next()
-	{
-		++$this->index;
-		++$this->position;
-	}
+        if (isset($this->elements[0])) {
+            $this->currentPage = $this->elements[0] - 1;
+        }
+    }
 
-	public function valid()
-	{
-		if (!isset($this->elements[$this->index])) {
-			return false;
-		} 
+    /**
+     *
+     */
+    public function next()
+    {
+        ++$this->index;
+        ++$this->position;
+    }
 
-		$nextPage = $this->elements[$this->index];
+    /**
+     * @return bool
+     */
+    public function valid()
+    {
+        if (!isset($this->elements[$this->index])) {
+            return false;
+        }
 
-		if ($nextPage == ($this->currentPage + 1)) {
-			$this->currentItem = new $this->pageItemClass($nextPage);
-			$this->currentPage	= $nextPage;
-		} else {
-			$this->currentItem = new $this->gapItemClass();
-			$this->currentPage	= $nextPage - 1;
-			--$this->index;
-		}
+        $nextPage = $this->elements[$this->index];
 
-		return true;
-	}
+        if ($nextPage == ($this->currentPage + 1)) {
+            $this->currentItem = new $this->pageItemClass($nextPage);
+            $this->currentPage = $nextPage;
+        } else {
+            $this->currentItem = new $this->gapItemClass();
+            $this->currentPage = $nextPage - 1;
+            --$this->index;
+        }
 
-	public function key()
-	{
-		return $this->position;
-	}
+        return true;
+    }
 
-	public function current()
-	{
-		return $this->currentItem;
-	}
+    /**
+     * @return int
+     */
+    public function key()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function current()
+    {
+        return $this->currentItem;
+    }
 }
 

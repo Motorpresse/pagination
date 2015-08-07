@@ -20,30 +20,14 @@
  * http://www.gnu.org/licenses/lgpl-3.0.de.html
  *
  **************************************************************/
-
+namespace Mps\Pagination\Gap;
 
 /**
- * a simple page item class
+ * a simple gap item class
  *
  * @author Nikolas Schmidt-Voigt <n.schmidtvoigt@googlemail.com>
  * @license LGPL-3.0 <http://opensource.org/licenses/LGPL-3.0>
  */
-
-class PageItem implements PageItemInterface
+class GapItem implements GapItemInterface
 {
-	protected $pageNumber;
-
-	public function __construct($pageNumber)
-	{
-		if (!is_integer($pageNumber)) {
-			throw new InvalidValueException('page number must be an interger');
-		}
-
-		$this->pageNumber = $pageNumber;
-	}
-
-	public function getPageNumber()
-	{
-		return $this->pageNumber;
-	}
 }

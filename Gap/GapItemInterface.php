@@ -20,7 +20,7 @@
  * http://www.gnu.org/licenses/lgpl-3.0.de.html
  *
  **************************************************************/
-
+namespace Mps\Pagination\Gap;
 
 /**
  * interface for a gap item
@@ -31,7 +31,6 @@
  * @author Nikolas Schmidt-Voigt <n.schmidtvoigt@googlemail.com>
  * @license LGPL-3.0 <http://opensource.org/licenses/LGPL-3.0>
  */
-
 interface GapItemInterface
 {
 }

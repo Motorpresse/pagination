@@ -20,7 +20,7 @@
  * http://www.gnu.org/licenses/lgpl-3.0.de.html
  *
  **************************************************************/
-
+namespace Mps\Pagination;
 
 /**
  * interface for pagination iterators
@@ -31,32 +31,31 @@
  * @author Nikolas Schmidt-Voigt <n.schmidtvoigt@googlemail.com>
  * @license LGPL-3.0 <http://opensource.org/licenses/LGPL-3.0>
  */
-
-interface PaginationIteratorInterface extends Iterator
+interface PaginationIteratorInterface extends \Iterator
 {
-	/**
-	 * construct a new PaginationIterator object
-	 *
-	 * @param	array	elements	the elements which are shown in the pagination
-	 */
-	public function __construct(array $elements);
+    /**
+     * construct a new PaginationIterator object
+     *
+     * @param    array    elements    the elements which are shown in the pagination
+     */
+    public function __construct(array $elements);
 
-	/**
-	 * sets the page item class
-	 * 
-	 * items of the element set will be returned as instances of this class
-	 *
-	 * @param	string	class name of the page items
-	 */
-	public function setPageItemClass($pageItemClass);
+    /**
+     * sets the page item class
+     *
+     * items of the element set will be returned as instances of this class
+     *
+     * @param    string    class name of the page items
+     */
+    public function setPageItemClass($pageItemClass);
 
-	/**
-	 * sets the gap item class
-	 *
-	 * gaps between the elements of the element set will be returned as instances
-	 * of this class
-	 *
-	 * @param	string	class name of the gap items
-	 */
-	public function setGapItemClass($gapItemClass);
+    /**
+     * sets the gap item class
+     *
+     * gaps between the elements of the element set will be returned as instances
+     * of this class
+     *
+     * @param    string    class name of the gap items
+     */
+    public function setGapItemClass($gapItemClass);
 }

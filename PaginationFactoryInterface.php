@@ -20,7 +20,7 @@
  * http://www.gnu.org/licenses/lgpl-3.0.de.html
  *
  **************************************************************/
-
+namespace Mps\Pagination;
 
 /**
  * the pagination factory interface
@@ -31,19 +31,18 @@
  * @author Nikolas Schmidt-Voigt <n.schmidtvoigt@googlemail.com>
  * @license LGPL-3.0 <http://opensource.org/licenses/LGPL-3.0>
  */
-
- interface PaginationFactoryInterface
- {
-	/**
-	 * produces a new pagination iterator instance
-	 *
-	 * @param	int	min	the lowest element in the pagination
-	 * @param	int max	the highest element in the pagination
-	 * @param	int steps	the number of items displayed in the pagination
-	 * @param	int current	the current page
-	 * @return	PaginationIteratorInterface	the new pagination iterator
-	 */
-	public static function makeNewPagination($max, $steps, $current, $min);
- }
+interface PaginationFactoryInterface
+{
+    /**
+     * produces a new pagination iterator instance
+     *
+     * @param    int    min    the lowest element in the pagination
+     * @param    int max    the highest element in the pagination
+     * @param    int steps    the number of items displayed in the pagination
+     * @param    int current    the current page
+     * @return    PaginationIteratorInterface    the new pagination iterator
+     */
+    public static function makeNewPagination($max, $steps, $current, $min);
+}
 
 

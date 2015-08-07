@@ -20,7 +20,7 @@
  * http://www.gnu.org/licenses/lgpl-3.0.de.html
  *
  **************************************************************/
-
+namespace Mps\Pagination;
 
 /**
  * a neighbour pagination class factory
@@ -31,59 +31,58 @@
  * @author Nikolas Schmidt-Voigt <n.schmidtvoigt@googlemail.com>
  * @license LGPL-3.0 <http://opensource.org/licenses/LGPL-3.0>
  */
+class NeighbourPaginationFactory implements PaginationFactoryInterface
+{
+    public static function makeNewPagination($max, $steps, $current = 1, $min = 1)
+    {
+        $min = min($current, $min);
+        $max = max($current, $max);
 
- class NeighbourPaginationFactory implements PaginationFactoryInterface
- {
-	public static function makeNewPagination($max, $steps, $current = 1, $min = 1)
-	{
-		$min	= min($current, $min);
-		$max	= max($current, $max);
+        if ($max - $min + 1 < $steps) {
+            /* we have less pages in our list than the maximal number of steps.
+                therefore the pagination will show all the pages.
+            */
+            $elements = range($min, $max);
+        } else {
 
-		if ($max -  $min + 1 < $steps) {
-			/* we have less pages in our list than the maximal number of steps.
-				therefore the pagination will show all the pages.
-			*/
-			$elements = range($min, $max);
-		} else {
+            // first, last and current page belong to the pagination in any case
+            $elements = array_unique(array((int)$min, (int)$max, (int)$current));
+            $steps = $steps - count($elements);
 
-			// first, last and current page belong to the pagination in any case
-			$elements	= array_unique(array((int) $min, (int) $max, (int) $current));
-			$steps		= $steps - count($elements);
+            // calculate how many pages are shown before an after the current page
+            $before = (int)($steps / 2);
 
-			// calculate how many pages are shown before an after the current page
-			$before = (int) ($steps / 2);
-			
-			if ($steps % 2 == 1) {
-				$after = $before + 1;
-			} else {
-				$after = $before;
-			}
+            if ($steps % 2 == 1) {
+                $after = $before + 1;
+            } else {
+                $after = $before;
+            }
 
-			/* take into account that there may not be enough space before or after the 
-				current page to show the same number of pages before and after the current
-				page.
-			*/
-			$spaceBefore	= max($current - ($min + 1), 0);
-			$spaceAfter		= max($max - ($current + 1), 0);
+            /* take into account that there may not be enough space before or after the
+                current page to show the same number of pages before and after the current
+                page.
+            */
+            $spaceBefore = max($current - ($min + 1), 0);
+            $spaceAfter = max($max - ($current + 1), 0);
 
-			if ($spaceBefore < $before) {
-				$after	+= $before - $spaceBefore;
-				$before	= $spaceBefore;
-			}
+            if ($spaceBefore < $before) {
+                $after += $before - $spaceBefore;
+                $before = $spaceBefore;
+            }
 
-			if ($spaceAfter < $after) {
-				$before += $after - $spaceAfter;
-				$after	= $spaceAfter;
-			}
+            if ($spaceAfter < $after) {
+                $before += $after - $spaceAfter;
+                $after = $spaceAfter;
+            }
 
-			// push the pages before and after the current page into the pagination elements
-			for ($i = $current - $before; $i < $current; $i++) {
-				array_push($elements, $i);
-			}
-			for ($i = $current + 1; $i <= $current + $after; $i++) {
-				array_push($elements, $i);
-			}
-		}
-		return new PaginationIterator($elements);
-	}
- }
+            // push the pages before and after the current page into the pagination elements
+            for ($i = $current - $before; $i < $current; $i++) {
+                array_push($elements, $i);
+            }
+            for ($i = $current + 1; $i <= $current + $after; $i++) {
+                array_push($elements, $i);
+            }
+        }
+        return new PaginationIterator($elements);
+    }
+}
