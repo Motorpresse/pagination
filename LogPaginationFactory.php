@@ -22,6 +22,8 @@
  **************************************************************/
 namespace Mps\Pagination;
 
+use Mps\Pagination\Log\LogStepDivision;
+
 /**
  * a log pagination class factory
  *
@@ -67,7 +69,7 @@ class LogPaginationFactory implements PaginationFactoryInterface
             $steps -= count($elements);
 
             if ($steps > 0) {
-                $scale = new StepDivision($head, $tail, $steps);
+                $scale = new LogStepDivision($head, $tail, $steps);
                 $scale->makeInt();
 
                 /**

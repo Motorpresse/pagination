@@ -22,6 +22,10 @@
  **************************************************************/
 namespace Mps\Pagination;
 
+use Mps\Pagination\Page\PageItem;
+use Mps\Pagination\Gap\GapItem;
+
+
 /**
  * a simple pagination iterator
  *
@@ -126,10 +130,10 @@ class PaginationIterator implements PaginationIteratorInterface
         $nextPage = $this->elements[$this->index];
 
         if ($nextPage == ($this->currentPage + 1)) {
-            $this->currentItem = new $this->pageItemClass($nextPage);
+            $this->currentItem = new PageItem($nextPage);
             $this->currentPage = $nextPage;
         } else {
-            $this->currentItem = new $this->gapItemClass();
+            $this->currentItem = new GapItem();
             $this->currentPage = $nextPage - 1;
             --$this->index;
         }
