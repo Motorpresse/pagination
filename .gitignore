@@ -1,5 +1,22 @@
+# build, backup and ide
+.buildpath
+.rsync_cache
+.rsync_cache/*
+.settings/*
+.settings
+.idea/*
+.idea
+.settings/org.eclipse.php.core.prefs
+LICENSE
+*.php~
+*.yml~
+atlassian-ide-plugin.xml
+node_modules
+/*.log
+
 # files
 composer.lock
+
 
 # dirs
 vendor

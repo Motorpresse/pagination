@@ -220,7 +220,5 @@ class PaginationIterator implements PaginationIteratorInterface
     {
         $this->currentItem = $currentItem;
     }
-
-    
 }
 
