@@ -156,5 +156,71 @@ class PaginationIterator implements PaginationIteratorInterface
     {
         return $this->currentItem;
     }
+
+    /**
+     * @return int
+     */
+    public function getIndex()
+    {
+        return $this->index;
+    }
+
+    /**
+     * @param int $index
+     */
+    public function setIndex($index)
+    {
+        $this->index = $index;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCurrentPage()
+    {
+        return $this->currentPage;
+    }
+
+    /**
+     * @param int $currentPage
+     */
+    public function setCurrentPage($currentPage)
+    {
+        $this->currentPage = $currentPage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentItem()
+    {
+        return $this->currentItem;
+    }
+
+    /**
+     * @param mixed $currentItem
+     */
+    public function setCurrentItem($currentItem)
+    {
+        $this->currentItem = $currentItem;
+    }
+
+    
 }
 
